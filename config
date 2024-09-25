@@ -1,3 +1,4 @@
+#new
 # this file is included from init scripts
 # change values here
 
@@ -56,7 +57,7 @@ MODE=nfqws
 # apply fooling to http
 MODE_HTTP=1
 # for nfqws only. support http keep alives. enable only if DPI checks for http request in any outgoing packet
-MODE_HTTP_KEEPALIVE=0
+MODE_HTTP_KEEPALIVE=1
 # apply fooling to https
 MODE_HTTPS=1
 # apply fooling to quic
@@ -67,12 +68,12 @@ MODE_FILTER=hostlist
 # CHOOSE NFQWS DAEMON OPTIONS for DPI desync mode. run "nfq/nfqws --help" for option list
 DESYNC_MARK=0x40000000
 DESYNC_MARK_POSTNAT=0x20000000
-NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=4 --dpi-desync-ttl6=2 --dpi-desync-split-pos=2 --wssize 1:6 --dpi-desync-fooling=md5sig"
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-split-seqovl=1 --dpi-desync-fooling=md5sig,badseq --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
 #NFQWS_OPT_DESYNC_HTTP="--dpi-desync=split --dpi-desync-ttl=0 --dpi-desync-fooling=badsum"
 #NFQWS_OPT_DESYNC_HTTPS="--wssize=1:6 --dpi-desync=split --dpi-desync-ttl=0 --dpi-desync-fooling=badsum"
 #NFQWS_OPT_DESYNC_HTTP6="--dpi-desync=split --dpi-desync-ttl=5 --dpi-desync-fooling=none"
 #NFQWS_OPT_DESYNC_HTTPS6="--wssize=1:6 --dpi-desync=split --dpi-desync-ttl=5 --dpi-desync-fooling=none"
-NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake --dpi-desync-repeats=6"
+NFQWS_OPT_DESYNC_QUIC="--hostlist=/opt/zapret/ipset/zapret-hosts-user.txt --dpi-desync=fake --dpi-desync-repeats=2 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin --new --dpi-desync=fake --dpi-desync-repeats=2"
 #NFQWS_OPT_DESYNC_QUIC6="--dpi-desync=hopbyhop"
 
 # CHOOSE TPWS DAEMON OPTIONS. run "tpws/tpws --help" for option list
@@ -113,4 +114,4 @@ DISABLE_IPV6=1
 # select which init script will be used to get ip or host list
 # possible values : get_user.sh get_antizapret.sh get_combined.sh get_reestr.sh get_hostlist.sh
 # comment if not required
-GETLIST=get_antizapret_domains.sh
+#GETLIST=
