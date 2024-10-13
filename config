@@ -1,4 +1,4 @@
-#new2
+#new3
 # this file is included from init scripts
 # change values here
 
@@ -57,7 +57,7 @@ MODE=nfqws
 # apply fooling to http
 MODE_HTTP=1
 # for nfqws only. support http keep alives. enable only if DPI checks for http request in any outgoing packet
-MODE_HTTP_KEEPALIVE=1
+MODE_HTTP_KEEPALIVE=0
 # apply fooling to https
 MODE_HTTPS=1
 # apply fooling to quic
@@ -68,12 +68,12 @@ MODE_FILTER=hostlist
 # CHOOSE NFQWS DAEMON OPTIONS for DPI desync mode. run "nfq/nfqws --help" for option list
 DESYNC_MARK=0x40000000
 DESYNC_MARK_POSTNAT=0x20000000
-NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-autottl=1:1-10 --dpi-desync-fooling=md5sig --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=3 --dpi-desync-ttl6=0 --dpi-desync-repeats=20 --dpi-desync-fooling=md5sig,badseq --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
 #NFQWS_OPT_DESYNC_HTTP="--dpi-desync=split --dpi-desync-ttl=0 --dpi-desync-fooling=badsum"
 #NFQWS_OPT_DESYNC_HTTPS="--wssize=1:6 --dpi-desync=split --dpi-desync-ttl=0 --dpi-desync-fooling=badsum"
 #NFQWS_OPT_DESYNC_HTTP6="--dpi-desync=split --dpi-desync-ttl=5 --dpi-desync-fooling=none"
 #NFQWS_OPT_DESYNC_HTTPS6="--wssize=1:6 --dpi-desync=split --dpi-desync-ttl=5 --dpi-desync-fooling=none"
-NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake --dpi-desync-repeats=6"
+NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake,split2 --dpi-desync-repeats=15 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin --new --dpi-desync=fake --dpi-desync-repeats=15"
 #NFQWS_OPT_DESYNC_QUIC6="--dpi-desync=hopbyhop"
 
 # CHOOSE TPWS DAEMON OPTIONS. run "tpws/tpws --help" for option list
